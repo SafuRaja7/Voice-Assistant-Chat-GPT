@@ -1,4 +1,6 @@
 import 'package:avatar_glow/avatar_glow.dart';
+import 'package:chat_gpt_flutter/configs/app.dart';
+import 'package:chat_gpt_flutter/configs/configs.dart';
 import 'package:chat_gpt_flutter/models/chat_message.dart';
 import 'package:chat_gpt_flutter/services/api_services.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +16,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   SpeechToText speechToText = SpeechToText();
   var isListening = false;
-  var text = 'Hold the mic and start speaking';
+  var text = 'Hold the Button and Start Speaking';
   double confidence = 1.0;
   var scrollController = ScrollController();
 
@@ -30,8 +32,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    App.init(context);
     return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
       floatingActionButton: AvatarGlow(
         endRadius: 75.0,
         animate: isListening,
@@ -99,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
-          'Voice Assistant',
+          'Voice Assistant Chat GPT',
         ),
       ),
       body: SafeArea(
@@ -109,11 +112,12 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               Text(
                 text,
+                style: AppText.b1,
               ),
+              Space.y!,
               Expanded(
                 child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  padding: Space.all(0.5),
                   decoration: BoxDecoration(
                     color: Colors.grey,
                     borderRadius: BorderRadius.circular(
@@ -151,22 +155,23 @@ Widget chatBubble({required String? chatText, required ChatMessageType? type}) {
           color: Colors.white,
         ),
       ),
-      const SizedBox(
-        width: 12,
-      ),
+      Space.x!,
       Expanded(
         child: Container(
-          padding: const EdgeInsets.all(12),
-          margin: const EdgeInsets.only(bottom: 8),
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
+          margin: Space.v,
+          padding: Space.all(),
+          decoration: BoxDecoration(
+            color: type == ChatMessageType.bot ? Colors.green : Colors.white,
+            borderRadius: const BorderRadius.only(
               topRight: Radius.circular(12),
               bottomRight: Radius.circular(12),
               bottomLeft: Radius.circular(12),
             ),
           ),
-          child: Text(chatText!),
+          child: Text(
+            chatText!.trim(),
+            style: AppText.b2!.copyWith(color: Colors.black),
+          ),
         ),
       ),
     ],

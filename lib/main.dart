@@ -8,15 +8,12 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Chat Gpt',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      title: 'Voice Assistant Chat Gpt',
+      theme: ThemeData.dark(),
       home: const HomeScreen(),
     );
   }
