@@ -1,6 +1,7 @@
 enum ChatMessageType {
   user,
   bot,
+  keyboard,
 }
 
 class ChatMessage {

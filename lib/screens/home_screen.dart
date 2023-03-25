@@ -14,6 +14,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  TextEditingController textEditingController = TextEditingController();
   SpeechToText speechToText = SpeechToText();
   var isListening = false;
   var text = 'Hold the Button and Start Speaking';
@@ -21,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   var scrollController = ScrollController();
 
   final List<ChatMessage> messages = [];
+  String textChat = '';
 
   scrollMethod() {
     scrollController.animateTo(
@@ -34,9 +36,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     App.init(context);
     return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: AvatarGlow(
-        endRadius: 75.0,
+        endRadius: 60.0,
         animate: isListening,
         duration: const Duration(milliseconds: 2000),
         glowColor: Colors.green,
@@ -106,8 +108,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       body: SafeArea(
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+        child: Padding(
+          padding: Space.all(1),
           child: Column(
             children: [
               Text(
@@ -161,7 +163,7 @@ Widget chatBubble({required String? chatText, required ChatMessageType? type}) {
           margin: Space.v,
           padding: Space.all(),
           decoration: BoxDecoration(
-            color: type == ChatMessageType.bot ? Colors.green : Colors.white,
+            color: type == ChatMessageType.bot ? Colors.green : Colors.blue,
             borderRadius: const BorderRadius.only(
               topRight: Radius.circular(12),
               bottomRight: Radius.circular(12),
